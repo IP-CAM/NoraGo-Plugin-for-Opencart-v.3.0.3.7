@@ -34,7 +34,7 @@ After configuring, it is recommended that the connection be tested to ensure the
 
 ### Main Features
 * **Data Synchronization:** The plugin automatically synchronizes data from your NoraGo server with your OpenCart store.
-* **NoraAccount:** The first feature, and the only one so far, is displaying the username, password, and provider ID on the customer account page.
+* **NoraAccount:** The first feature, and the only one so far, is displaying the username, password, provider ID, and expiration time on the customer account page.
 * **Important Note:** You need to create a CUSTOM FIELD on Opencart, Customers -> Custom Fields, the Customer field NEEDS to be named "Account Number", you can put in any order you want, I like sort order 4 
 ## Common Issues and Solutions
 
