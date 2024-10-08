@@ -2,6 +2,45 @@
 class ControllerExtensionModuleShowEmail extends Controller {
     private $error = array();
 
+    // Adicionar o método de instalação
+    public function install() {
+        // Registrar o XML como uma modificação OCMOD
+        $this->load->model('setting/modification');
+        
+        $xml_file = DIR_APPLICATION . 'controller/extension/module/installCode.xml';
+        
+        if (file_exists($xml_file)) {
+            $xml = file_get_contents($xml_file);
+            
+            $modification_data = array(
+                'name'        => 'NGO-Cart',
+                'code'        => 'show_email_mod',  // Identificador único
+                'author'      => 'theHatb0y',
+                'version'     => '1.0',
+                'link'        => 'https://yourwebsite.com',
+                'status'      => 1,  // Ativado
+                'xml'         => $xml,
+                'date_added'  => date('Y-m-d H:i:s')
+            );
+
+            // Adicionar a modificação
+            $this->model_setting_modification->addModification($modification_data);
+
+            // Atualizar modificações para aplicar as mudanças
+            $this->load->controller('extension/modification/refresh');
+        }
+    }
+
+    // Adicionar o método de desinstalação
+    public function uninstall() {
+        // Remover a modificação quando o módulo for desinstalado
+        $this->load->model('setting/modification');
+        $this->model_setting_modification->deleteModification('show_email_mod');
+        
+        // Atualizar as modificações para remover as mudanças
+        $this->load->controller('extension/modification/refresh');
+    }
+
     public function index() {
         $this->load->language('extension/module/show_email');
         $this->document->setTitle($this->language->get('heading_title'));
@@ -94,4 +133,5 @@ class ControllerExtensionModuleShowEmail extends Controller {
 
         return !$this->error;
     }
+
 }

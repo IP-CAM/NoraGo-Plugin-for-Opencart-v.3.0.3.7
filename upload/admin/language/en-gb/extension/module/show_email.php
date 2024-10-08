@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']    = 'NGO-Cart';
+$_['heading_title']    = '0NGO-Cart';
 
 // Text
 $_['text_extension']   = 'Extensions';
 $_['text_success']     = 'Success: You have modified Show Email module!';
-$_['text_edit']        = 'Edit Show Email Module';
+$_['text_edit']        = 'NGO-Cart Module';
 $_['text_enabled']     = 'Enabled';
 $_['text_disabled']    = 'Disabled';
 

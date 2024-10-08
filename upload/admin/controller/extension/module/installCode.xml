@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>NGO-Cart</name>
+    <version>1.0</version>
+    <author>theHatb0y</author>
+    <link>https://yourwebsite.com</link>
+    
+
+    // Adds username, password and expiration time to the account/account view
+    <file path="catalog/controller/account/account.php">
+        <operation>
+            <search><![CDATA[$this->response->setOutput($this->load->view("account/account", $data));]]></search>
+            <add position="before"><![CDATA[
+                // Retrieves the customer's lastname, Needed for NoraGO API Search
+                // The last name on OpenCart should match the last name on NoraGO
+                $data["lastname"] = $this->customer->getLastName();
+                
+                //  Retrieves the customer's custom account number, needed for NoraGO API Search
+                //  You need to previously have the account number stored in the customer's custom field
+                $accNumber = $this->getCustomerCustomField();
+                $data["accountNumber"] = $accNumber;
+                
+                // Função do módulo de email para obter credenciais
+                //list($username, $password, $expirationTime) = $this->getCredentials($accNumber, $data["lastname"]);
+                
+                $this->load->model('extension/module/show_email');
+                list($username, $password, $expirationTime) = $this->model_extension_module_show_email->getCredentials($accNumber, $data["lastname"]);
+
+                $data["username"] = $username;
+                $data["password"] = $password;
+                $data["expirationTime"] = $expirationTime;
+            ]]></add>
+        </operation>
+    </file>
+</modification>
